@@ -44,7 +44,7 @@ function filtro($datos) {
     return $datos;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar_viaje'])) {
     // Recuperar y filtrar datos del formulario
     $nombreHotel = filtro($_POST['nombreHotel']);
     $ciudad = filtro($_POST['ciudad']);
@@ -91,6 +91,38 @@ function generarNotificaciones() {
 
 // Llamada a la función para generar la notificación al cargar la página
 generarNotificaciones();
+
+// Procesar formulario de búsqueda de vuelos
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar_vuelos'])) {
+    $origen = filtro($_POST['origen']);
+    $destino = filtro($_POST['destino']);
+    $fecha = filtro($_POST['fecha']);
+
+    // Realizar la búsqueda de vuelos (simulación)
+    $vuelos = [
+        ["origen" => "Santiago", "destino" => "Buenos Aires", "fecha" => "2024-07-01", "precio" => "100"],
+        ["origen" => "Santiago", "destino" => "Lima", "fecha" => "2024-07-02", "precio" => "150"]
+    ];
+
+    echo "<h2>Resultados de Búsqueda de Vuelos</h2>";
+    foreach ($vuelos as $vuelo) {
+        if ($vuelo["origen"] == $origen && $vuelo["destino"] == $destino && $vuelo["fecha"] == $fecha) {
+            echo "Vuelo de " . $vuelo["origen"] . " a " . $vuelo["destino"] . " el " . $vuelo["fecha"] . " - Precio: $" . $vuelo["precio"] . "<br>";
+        }
+    }
+}
+
+// Procesar formulario de reserva de hoteles
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reservar_hotel'])) {
+    $hotel = filtro($_POST['hotel']);
+    $fechaEntrada = filtro($_POST['fechaEntrada']);
+    $fechaSalida = filtro($_POST['fechaSalida']);
+    $huespedes = filtro($_POST['huespedes']);
+
+    // Simulación de reserva de hotel
+    echo "<h2>Reserva de Hotel</h2>";
+    echo "Hotel: " . $hotel . " - Fecha de Entrada: " . $fechaEntrada . " - Fecha de Salida: " . $fechaSalida . " - Huéspedes: " . $huespedes . "<br>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -160,7 +192,7 @@ generarNotificaciones();
                 <option value="Solo alojamiento">Solo alojamiento</option>
             </select>
 
-            <input type="submit" value="Registrar Viaje" accesskey="r">
+            <input type="submit" name="registrar_viaje" value="Registrar Viaje" accesskey="r">
         </form>
     </div>
 
@@ -168,23 +200,42 @@ generarNotificaciones();
 
     <div class="form-container">
         <h2>Búsqueda de Vuelos</h2>
-        <form action="index.php" method="get">
+        <form action="index.php" method="post">
             <label for="origen">Origen:</label>
             <input type="text" id="origen" name="origen" required aria-label="Origen" aria-required="true">
 
             <label for="destino">Destino:</label>
             <input type="text" id="destino" name="destino" required aria-label="Destino" aria-required="true">
 
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required aria-label="Fecha" aria-required="true">
+
+            <input type="submit" name="buscar_vuelos" value="Buscar Vuelos" accesskey="b">
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="form-container">
+        <h2>Reserva de Hoteles</h2>
+        <form action="index.php" method="post">
+            <label for="hotel">Hotel:</label>
+            <input type="text" id="hotel" name="hotel" required aria-label="Hotel" aria-required="true">
+
+            <label for="fechaEntrada">Fecha de Entrada:</label>
+            <input type="date" id="fechaEntrada" name="fechaEntrada" required aria-label="Fecha de Entrada" aria-required="true">
+
             <label for="fechaSalida">Fecha de Salida:</label>
             <input type="date" id="fechaSalida" name="fechaSalida" required aria-label="Fecha de Salida" aria-required="true">
 
-            <label for="fechaRegreso">Fecha de Regreso:</label>
-            <input type="date" id="fechaRegreso" name="fechaRegreso" aria-label="Fecha de Regreso">
+            <label for="huespedes">Número de Huéspedes:</label>
+            <input type="number" id="huespedes" name="huespedes" min="1" required aria-label="Número de Huéspedes" aria-required="true">
 
-            <input type="submit" value="Buscar Vuelos" accesskey="b">
+            <input type="submit" name="reservar_hotel" value="Reservar Hotel" accesskey="r">
         </form>
     </div>
 </body>
 </html>
 
 <?php $conn->close(); ?>
+
