@@ -163,6 +163,27 @@ generarNotificaciones();
             <input type="submit" value="Registrar Viaje" accesskey="r">
         </form>
     </div>
+
+    <hr>
+
+    <div class="form-container">
+        <h2>Búsqueda de Vuelos</h2>
+        <form action="index.php" method="get">
+            <label for="origen">Origen:</label>
+            <input type="text" id="origen" name="origen" required aria-label="Origen" aria-required="true">
+
+            <label for="destino">Destino:</label>
+            <input type="text" id="destino" name="destino" required aria-label="Destino" aria-required="true">
+
+            <label for="fechaSalida">Fecha de Salida:</label>
+            <input type="date" id="fechaSalida" name="fechaSalida" required aria-label="Fecha de Salida" aria-required="true">
+
+            <label for="fechaRegreso">Fecha de Regreso:</label>
+            <input type="date" id="fechaRegreso" name="fechaRegreso" aria-label="Fecha de Regreso">
+
+            <input type="submit" value="Buscar Vuelos" accesskey="b">
+        </form>
+    </div>
 </body>
 </html>
 
