@@ -23,9 +23,7 @@ if (isset($_GET['eliminar'])) {
 }
 
 // Mostrar los viajes en el carrito
-function mostrarCarrito() {
-    global $conn;
-
+function mostrarCarrito($conn) {
     if (empty($_SESSION['carrito'])) {
         echo "El carrito está vacío.";
         return;
@@ -67,7 +65,7 @@ function mostrarCarrito() {
         die("Error de conexión: " . $conn->connect_error);
     }
 
-    mostrarCarrito();
+    mostrarCarrito($conn);
 
     $conn->close();
     ?>

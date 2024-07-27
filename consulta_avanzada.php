@@ -13,7 +13,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "AGENCIA";
+    $dbname = "agencia_viajes";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
